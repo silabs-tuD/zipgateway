@@ -433,9 +433,17 @@ void ConfigInit()
 
       cfg.single_classic_temp_association = 0;
     }
+
+    cfg.time_reset_serial = atoi(config_get_val("TimeResendSerial", "0"));
+    if (cfg.time_reset_serial != 0) {
+      cfg.time_reset_serial = (cfg.time_reset_serial > 80) ? 80 
+                                            : (cfg.time_reset_serial < 20) ? 20 
+                                            : cfg.time_reset_serial;
+    }
+    DBG_PRINTF("Read cfg.time_reset_serial: %d\n", cfg.time_reset_serial);
   }
 
-  /*We wan't command line to override config file.*/
+  /*We want command line to override config file.*/
   parse_prog_args();
 }
 
