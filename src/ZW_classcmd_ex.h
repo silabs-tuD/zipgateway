@@ -1215,7 +1215,7 @@ typedef struct _ZW_EXTENDED_NODE_ADD_STATUS_1BYTE_FRAME_
 #define COMMAND_CLASS_NO_OPERATION_LR   0x04
 
 
-// adt hotfix
+// Soft Reset Status
 #define COMMAND_ZIP_SOFT_RESET_REPORT   0x04
 #define STATUS_SOFT_RESET_OK            0x0
 #define STATUS_SOFT_RESET_FAIL          0xFF

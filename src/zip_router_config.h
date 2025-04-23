@@ -321,7 +321,7 @@ struct router_config {
   /** Configuration parameter time resend data to Serial in zipgateway.cfg
    *
    */
-  uint8_t time_reset_serial; 
+  uint8_t time_resend_serial; 
 };
 
 /**

@@ -434,13 +434,34 @@ void ConfigInit()
       cfg.single_classic_temp_association = 0;
     }
 
-    cfg.time_reset_serial = atoi(config_get_val("TimeResendSerial", "0"));
-    if (cfg.time_reset_serial != 0) {
-      cfg.time_reset_serial = (cfg.time_reset_serial > 80) ? 80 
-                                            : (cfg.time_reset_serial < 20) ? 20 
-                                            : cfg.time_reset_serial;
+    /* Parse TimeResendSerial config */
+    endptr = NULL;
+    int time_resend_serial;    
+    /* Convert time resend serial into string */
+    s = config_get_val("TimeResendSerial", NULL);
+    if (s != NULL) {
+      LOG_PRINTF("TimeResendSerial: %s\n", s);
+      /* Convert the time reset serial into integer */
+      time_resend_serial = strtol(s, &endptr, 0);
+      /* Invalid if further characters are found after number or it's not numeric at all */
+      if (*endptr != '\0' || endptr == s) {
+        WRN_PRINTF("Failed to convert time_resend_serial to integer! Set to minimum value\n");
+        /* Set to minimum value: 20 */
+        time_resend_serial = 20;
+      }
+      else {
+        /* Filtering the time resend serial within a proper range [20 to 80] */
+        time_resend_serial = (time_resend_serial > 80) ? 80 
+                                              : (time_resend_serial < 20) ? 20 
+                                              : time_resend_serial;
+      }
+      cfg.time_resend_serial = time_resend_serial;
     }
-    DBG_PRINTF("Read cfg.time_reset_serial: %d\n", cfg.time_reset_serial);
+    else {
+      /* Default value if not set in config file */
+      cfg.time_resend_serial = 50; 
+    }
+    DBG_PRINTF("cfg.time_resend_serial: %d\n", cfg.time_resend_serial);
   }
 
   /*We want command line to override config file.*/

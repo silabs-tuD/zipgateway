@@ -818,9 +818,9 @@ PROCESS_THREAD(ZW_SendDataAppl_process, ev, data)
             if (current_session_ll->fb->param.snode != MyNodeID)
             {
               DBG_PRINTF("SEND_EVENT_SEND_NEXT_LL | ZW_SendData_Bridge \n");
-              if (etimer_expired(&resend_lockup_timer) && (cfg.time_reset_serial != 0)) {
-                DBG_PRINTF("etimer_set resend_lockup_timer with time: %d \n", cfg.time_reset_serial);
-                etimer_set(&resend_lockup_timer, 1000UL * cfg.time_reset_serial);
+              if (etimer_expired(&resend_lockup_timer) && (cfg.time_resend_serial != 0)) {
+                DBG_PRINTF("etimer_set resend_lockup_timer with time: %d \n", cfg.time_resend_serial);
+                etimer_set(&resend_lockup_timer, 1000UL * cfg.time_resend_serial);
               }
 
               if (etimer_expired(&soft_reset_timer)) {

@@ -100,7 +100,7 @@ struct ipv4_packet_buffer {
 };
 
 /**
- * 
+ * UDP receive sessions backup 
  */
 struct udp_rx_bk_t {
   list_t next;
@@ -451,7 +451,7 @@ void __ZW_SendDataZIP_ack(
     ZW_SendDataZIP_ack(&c,dataptr,datalen,cbFunc);
 }
 
-int ZW_IPMatch(uip_ipaddr_t s, uip_ipaddr_t d)
+int ZW_IPMatch(uip_ipaddr_t const s, uip_ipaddr_t const d)
 {
   if((s.u8[0] == d.u8[0]) 
     && (s.u8[1] == d.u8[1])
